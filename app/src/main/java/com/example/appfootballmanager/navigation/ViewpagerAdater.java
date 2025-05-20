@@ -22,11 +22,13 @@ public class ViewpagerAdater extends FragmentPagerAdapter {
                 return new Fragment_ket_qua();
             case 2:
                 return new HomeFragment();
+            case 3:
+                return new Fragment_ket_qua();
         }
         return null;
     }
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

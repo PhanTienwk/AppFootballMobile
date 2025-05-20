@@ -106,6 +106,7 @@ public class Giaidau {
                 ", moTa='" + moTa + '\'' +
                 ", ngayBatdau=" + ngayBatdau +
                 ", ngayKetThuc=" + ngayKetThuc +
+                ", ngayKetThucDangKy=" + ngayKetThucDangKy +
                 ", gioiTinh='" + gioiTinh + '\'' +
                 ", tenToChuc='" + tenToChuc + '\'' +
                 '}';

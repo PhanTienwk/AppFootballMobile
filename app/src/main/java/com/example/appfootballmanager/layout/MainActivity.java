@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         mBottomNavigationView.getMenu().findItem(R.id.player).setChecked(true);
 //                        getSupportActionBar().setTitle("Setting");
-
                         break;
 
                 }
@@ -93,9 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.player:
-                        mViewPager.setCurrentItem(2);
+                        mViewPager.setCurrentItem(3);
 //                        getSupportActionBar().setTitle("Setting");
-
                         break;
 
                 }

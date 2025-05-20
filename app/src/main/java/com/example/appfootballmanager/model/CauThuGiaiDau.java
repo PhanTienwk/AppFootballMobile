@@ -12,10 +12,58 @@ public class CauThuGiaiDau {
     @SerializedName("ma_giai_dau")
     private String maGiaiDau;
 
-    public CauThuGiaiDau(String maCauThu, String maGiaiDau, String maDoiBong) {
+    @SerializedName("ho_ten")
+    private String hoTen;
+
+    @SerializedName("so_ao")
+    private int soAo;
+
+    @SerializedName("hinh_anh")
+    private String hinhAnh;
+
+    @SerializedName("ma_vi_tri")
+    private String maViTri;
+
+    public CauThuGiaiDau(String maCauThu, String maDoiBong, String hoTen, String maGiaiDau, int soAo, String hinhAnh, String maViTri) {
         this.maCauThu = maCauThu;
-        this.maGiaiDau = maGiaiDau;
         this.maDoiBong = maDoiBong;
+        this.hoTen = hoTen;
+        this.maGiaiDau = maGiaiDau;
+        this.soAo = soAo;
+        this.hinhAnh = hinhAnh;
+        this.maViTri = maViTri;
+    }
+
+    public String getHoTen() {
+        return hoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
+
+    public int getSoAo() {
+        return soAo;
+    }
+
+    public void setSoAo(int soAo) {
+        this.soAo = soAo;
+    }
+
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
+
+    public String getMaViTri() {
+        return maViTri;
+    }
+
+    public void setMaViTri(String maViTri) {
+        this.maViTri = maViTri;
     }
 
     public String getMaCauThu() {

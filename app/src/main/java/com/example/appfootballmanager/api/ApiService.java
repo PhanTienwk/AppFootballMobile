@@ -9,7 +9,7 @@ import com.example.appfootballmanager.model.KetQuaTranDau;
 import com.example.appfootballmanager.model.TranDau;
 import com.example.appfootballmanager.model.TrongTai;
 import com.example.appfootballmanager.model.ViTriCauThu;
-import com.example.appfootballmanager.model.XepHangVongLoai;
+import com.example.appfootballmanager.model.BangXepHangVongLoai;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,7 +26,7 @@ public interface ApiService {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.20:4002/api/")
+            .baseUrl("http://192.168.2.19:4002/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
@@ -59,5 +59,5 @@ public interface ApiService {
     Call<List<ViTriCauThu>> getListViTriCauThu();
 
     @GET("xep_hang_vong_loai")
-    Call<List<XepHangVongLoai>> getListXepHangVongLoai();
+    Call<List<BangXepHangVongLoai>> getListXepHangVongLoai();
 }
