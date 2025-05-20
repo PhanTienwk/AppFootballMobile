@@ -15,19 +15,31 @@ public class Giaidau {
     private Date ngayBatdau;
     @SerializedName("ngay_ket_thuc")
     private Date ngayKetThuc;
+
+    @SerializedName("ngay_ket_thuc_dang_ky_giai")
+    private Date ngayKetThucDangKy;
     @SerializedName("gioi_tinh")
     private String gioiTinh;
     @SerializedName("ten_to_chuc")
     private String tenToChuc;
 
-    public Giaidau(String maGiaidau, String tenGiaiDau, String moTa, Date ngayKetThuc, Date ngayBatdau, String gioiTinh, String tenToChuc) {
+    public Giaidau(String maGiaidau, String tenGiaiDau, String moTa, Date ngayBatdau, Date ngayKetThuc, Date ngayKetThucDangKy, String gioiTinh, String tenToChuc) {
         this.maGiaidau = maGiaidau;
         this.tenGiaiDau = tenGiaiDau;
         this.moTa = moTa;
-        this.ngayKetThuc = ngayKetThuc;
         this.ngayBatdau = ngayBatdau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.ngayKetThucDangKy = ngayKetThucDangKy;
         this.gioiTinh = gioiTinh;
         this.tenToChuc = tenToChuc;
+    }
+
+    public Date getNgayKetThucDangKy() {
+        return ngayKetThucDangKy;
+    }
+
+    public void setNgayKetThucDangKy(Date ngayKetThucDangKy) {
+        this.ngayKetThucDangKy = ngayKetThucDangKy;
     }
 
     public String getMaGiaidau() {

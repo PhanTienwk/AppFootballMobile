@@ -14,6 +14,9 @@ public class CauThu {
     @SerializedName("ngay_sinh")
     private Date ngaySinh;
 
+    @SerializedName("so_ao")
+    private int soAo;
+
     @SerializedName("gioi_tinh")
     private String gioiTinh;
 
@@ -26,14 +29,23 @@ public class CauThu {
     @SerializedName("hinh_anh")
     private String hinhAnh;
 
-    public CauThu(String maCauThu, String hoTen, Date ngaySinh, String gioiTinh, String maViTri, String maDoiBong, String hinhAnh) {
+    public CauThu(String maCauThu, String hoTen, Date ngaySinh, int soAo, String gioiTinh, String maDoiBong, String maViTri, String hinhAnh) {
         this.maCauThu = maCauThu;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
+        this.soAo = soAo;
         this.gioiTinh = gioiTinh;
-        this.maViTri = maViTri;
         this.maDoiBong = maDoiBong;
+        this.maViTri = maViTri;
         this.hinhAnh = hinhAnh;
+    }
+
+    public int getSoAo() {
+        return soAo;
+    }
+
+    public void setSoAo(int soAo) {
+        this.soAo = soAo;
     }
 
     public String getMaCauThu() {
