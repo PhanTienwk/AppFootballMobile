@@ -22,7 +22,7 @@ public class TranDau {
     private Date ngayDienRa;
 
     @SerializedName("gio_dien_ra")
-    private java.sql.Time gioDienRa;
+    private String gioDienRa;
 
     @SerializedName("ma_san")
     private String sanVanDong;
@@ -33,7 +33,7 @@ public class TranDau {
     @SerializedName("ma_vong_dau")
     private String maVongDau;
 
-    public TranDau(String maTranDau, String maGiaiDau, String maDoi1, String maDoi2, Date ngayDienRa, Time gioDienRa, String sanVanDong, String maVongDau, String trangThai) {
+    public TranDau(String maTranDau, String maGiaiDau, String maDoi1, String maDoi2, Date ngayDienRa, String gioDienRa, String sanVanDong, String maVongDau, String trangThai) {
         this.maTranDau = maTranDau;
         this.maGiaiDau = maGiaiDau;
         this.maDoi1 = maDoi1;
@@ -85,11 +85,11 @@ public class TranDau {
         this.ngayDienRa = ngayDienRa;
     }
 
-    public Time getGioDienRa() {
+    public String getGioDienRa() {
         return gioDienRa;
     }
 
-    public void setGioDienRa(Time gioDienRa) {
+    public void setGioDienRa(String gioDienRa) {
         this.gioDienRa = gioDienRa;
     }
 
@@ -100,8 +100,6 @@ public class TranDau {
     public void setSanVanDong(String sanVanDong) {
         this.sanVanDong = sanVanDong;
     }
-
-
 
     public String getTrangThai() {
         return trangThai;
@@ -117,5 +115,20 @@ public class TranDau {
 
     public void setMaVongDau(String maVongDau) {
         this.maVongDau = maVongDau;
+    }
+
+    @Override
+    public String toString() {
+        return "TranDau{" +
+                "maTranDau='" + maTranDau + '\'' +
+                ", maGiaiDau='" + maGiaiDau + '\'' +
+                ", maDoi1='" + maDoi1 + '\'' +
+                ", maDoi2='" + maDoi2 + '\'' +
+                ", ngayDienRa=" + ngayDienRa +
+                ", gioDienRa=" + gioDienRa +
+                ", sanVanDong='" + sanVanDong + '\'' +
+                ", trangThai='" + trangThai + '\'' +
+                ", maVongDau='" + maVongDau + '\'' +
+                '}';
     }
 }

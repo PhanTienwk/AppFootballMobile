@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.appfootballmanager.fragment.Fragment_ket_qua;
+import com.example.appfootballmanager.fragment.GiaiDauFragment;
 import com.example.appfootballmanager.fragment.HomeFragment;
 
 public class ViewpagerAdater extends FragmentPagerAdapter {
@@ -19,7 +20,7 @@ public class ViewpagerAdater extends FragmentPagerAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new Fragment_ket_qua();
+                return new GiaiDauFragment();
             case 2:
                 return new HomeFragment();
             case 3:

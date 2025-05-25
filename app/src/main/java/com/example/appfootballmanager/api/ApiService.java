@@ -4,12 +4,14 @@ import com.example.appfootballmanager.model.BangDau;
 import com.example.appfootballmanager.model.CauThu;
 import com.example.appfootballmanager.model.CauThuGiaiDau;
 import com.example.appfootballmanager.model.DoiBong;
+import com.example.appfootballmanager.model.DoiBongGiaiDau;
 import com.example.appfootballmanager.model.Giaidau;
 import com.example.appfootballmanager.model.KetQuaTranDau;
+import com.example.appfootballmanager.model.SanVanDong;
 import com.example.appfootballmanager.model.TranDau;
 import com.example.appfootballmanager.model.TrongTai;
 import com.example.appfootballmanager.model.ViTriCauThu;
-import com.example.appfootballmanager.model.BangXepHangVongLoai;
+import com.example.appfootballmanager.model.VongDau;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -44,12 +47,12 @@ public interface ApiService {
     Call<List<CauThuGiaiDau>> getListCauThuGiaiDau();
 
     @GET("doi_bong")
-    Call<List<DoiBong>> getListCauThuDoiBong();
+    Call<List<DoiBong>> getListDoiBong();
 
     @GET("ket_qua_tran_dau")
     Call<List<KetQuaTranDau>> getListKetQuaTranDau();
 
-    @GET("trau_dau")
+    @GET("tran_dau")
     Call<List<TranDau>> getListTranDau();
 
     @GET("trong_tai")
@@ -58,6 +61,14 @@ public interface ApiService {
     @GET("vi_tri_cau_thu")
     Call<List<ViTriCauThu>> getListViTriCauThu();
 
-    @GET("xep_hang_vong_loai")
-    Call<List<BangXepHangVongLoai>> getListXepHangVongLoai();
+    @GET("doi_bong_giai_dau")
+    Call<List<DoiBongGiaiDau>> getListDoiBongGiaiDau();
+
+    @GET("san_van_dong")
+    Call<List<SanVanDong>> getListSanVanDong();
+
+    @GET("vong_dau")
+    Call<List<VongDau>> getListVongDau();
+
+
 }

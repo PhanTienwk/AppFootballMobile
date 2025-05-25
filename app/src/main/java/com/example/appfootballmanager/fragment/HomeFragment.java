@@ -130,8 +130,8 @@ public class HomeFragment extends Fragment {
         slidePhotoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
 
 
-        button = view.findViewById(R.id.button);
-        button.setOnClickListener((v) -> {clickCallApi();});
+//        button = view.findViewById(R.id.button);
+//        button.setOnClickListener((v) -> {clickCallApi();});
 
 
 
@@ -139,29 +139,29 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void clickCallApi() {
-        ApiService.apiService.getListGiaiDau().enqueue(new Callback<List<Giaidau>>() {
-            @Override
-            public void onResponse(Call<List<Giaidau>> call, Response<List<Giaidau>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Giaidau> giaiDauList = response.body();
-                    for (Giaidau giaiDau : giaiDauList) {
-                        Log.d("GiaiDau", "Tournament: " + giaiDau.getTenGiaiDau() + ", Start Date: " + giaiDau.getTenToChuc());
-                    }
-                    Toast.makeText(getContext(), "Fetched " + giaiDauList.size() + " tournaments", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "Failed to fetch tournaments", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Giaidau>> call, Throwable t) {
-                Log.e("GiaiDau", "Error: " + t.getMessage());
-                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    private void clickCallApi() {
+//        ApiService.apiService.getListGiaiDau().enqueue(new Callback<List<Giaidau>>() {
+//            @Override
+//            public void onResponse(Call<List<Giaidau>> call, Response<List<Giaidau>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<Giaidau> giaiDauList = response.body();
+//                    for (Giaidau giaiDau : giaiDauList) {
+//                        Log.d("GiaiDau", "Tournament: " + giaiDau.getTenGiaiDau() + ", Start Date: " + giaiDau.getTenToChuc());
+//                    }
+//                    Toast.makeText(getContext(), "Fetched " + giaiDauList.size() + " tournaments", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getActivity(), "Failed to fetch tournaments", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Giaidau>> call, Throwable t) {
+//                Log.e("GiaiDau", "Error: " + t.getMessage());
+//                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
     private List<SlidePhoto> listSlidePhoto(){
         List<SlidePhoto> list = new ArrayList<>();
