@@ -301,11 +301,12 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
 
                         int sotrandau = 0, sotranthang = 0, sotranthua = 0, sotranhoa = 0, sodiem = 0, hieuso = 0;
                         String tendoibong = "", madoibong = "";
+                        sodiem=doibonggiaidau.getDiemVongLoai();
 
                         // Tìm tên đội bóng
                         for (DoiBong doibong : listDoiBong) {
                             if (doibong.getMaDoiBong().equals(doibonggiaidau.getMaDoiBong())) {
-                                tendoibong = doibong.getTenDoiBong();
+                                tendoibong = doibonggiaidau.getTenDoiBong();
                                 madoibong = doibong.getMaDoiBong();
                                 break;
                             }
@@ -319,13 +320,11 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
                                         ++sotrandau;
                                         if (ketqua.getSoBanDoi1() == ketqua.getSoBanDoi2()) {
                                             ++sotranhoa;
-                                            ++sodiem;
                                         } else if (trandau.getMaDoi1().equals(madoibong) &&
                                                 ketqua.getSoBanDoi1() > ketqua.getSoBanDoi2() ||
                                                 trandau.getMaDoi2().equals(madoibong) &&
                                                         ketqua.getSoBanDoi2() > ketqua.getSoBanDoi1()) {
                                             ++sotranthang;
-                                            sodiem += 3;
                                             hieuso += (trandau.getMaDoi1().equals(madoibong) ?
                                                     ketqua.getSoBanDoi1() - ketqua.getSoBanDoi2() :
                                                     ketqua.getSoBanDoi2() - ketqua.getSoBanDoi1());

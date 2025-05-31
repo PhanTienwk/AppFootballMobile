@@ -40,13 +40,17 @@ public class TranDau1Adapter extends RecyclerView.Adapter<TranDau1Adapter.Tranda
             holder.tvThoiGian.setText(trandau.getGio());
             holder.tvNgayToChuc.setText(trandau.getNgay());
             holder.tvTenSanVanDong.setText(trandau.getSanvandong());
+
+        String baseUrl = "https://res.cloudinary.com/dyilzwziv/image/upload/";
+        String fullImageUrl1 = baseUrl + trandau.getHinhAnhDoi1();
+        String fullImageUrl2 = baseUrl + trandau.getHinhAnhDoi2();
         Glide.with(holder.itemView.getContext())
-                .load(trandau.getHinhAnhDoi1())
+                .load(fullImageUrl1)
                 .placeholder(R.drawable.mancity)
                 .error(R.drawable.mancity)
                 .into(holder.imhinhAnhDoi1);
         Glide.with(holder.itemView.getContext())
-                .load(trandau.getHinhAnhDoi2())
+                .load(fullImageUrl2)
                 .placeholder(R.drawable.chelsea)
                 .error(R.drawable.chelsea)
                 .into(holder.imhinhAnhDoi2);

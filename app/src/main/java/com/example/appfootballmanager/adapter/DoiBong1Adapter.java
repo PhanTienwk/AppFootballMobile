@@ -39,8 +39,10 @@ public class DoiBong1Adapter extends RecyclerView.Adapter<DoiBong1Adapter.DoiBon
         }
         holder.sttDoiBong.setText(String.valueOf(position + 1));
         holder.tenDoiBong.setText(doibong.getTenDoiBong());
+        String baseUrl = "https://res.cloudinary.com/dyilzwziv/image/upload/";
+        String fullImageUrl1 = baseUrl + doibong.getLogo();
         Glide.with(holder.logoDoiBong.getContext())
-                .load(doibong.getLogo())
+                .load(fullImageUrl1)
                 .placeholder(R.drawable.mancity)
                 .error(R.drawable.mancity)
                 .into(holder.logoDoiBong);

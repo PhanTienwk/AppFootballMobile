@@ -14,11 +14,11 @@
         android:layout_height="130dp"
         app:srcCompat="@drawable/banner" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Button" />-->
 
     <TextView
         android:id="@+id/textView3"

@@ -46,8 +46,10 @@ public class GiaiDau1Adapter extends RecyclerView.Adapter<GiaiDau1Adapter.GiaiDa
         if (giaidau == null) {
             return;
         }
+        String baseUrl = "https://res.cloudinary.com/dyilzwziv/image/upload/";
+        String fullImageUrl1 = baseUrl + giaidau.getHinhAnh();
         Glide.with(holder.itemView.getContext())
-                .load(giaidau.getHinhAnh())
+                .load(fullImageUrl1)
                 .placeholder(R.drawable.logopp)
                 .error(R.drawable.logopp)
                 .into(holder.logoGiaiDau);
