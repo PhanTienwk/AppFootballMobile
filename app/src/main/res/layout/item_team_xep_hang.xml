@@ -8,7 +8,7 @@
     android:layout_marginBottom="1dp">
 
     <TextView
-        android:id="@+id/position"
+        android:id="@+id/tvSTTBXH"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:text="1"
@@ -18,7 +18,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/clubName"
+        android:id="@+id/tvDoiBongBXH"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -30,7 +30,7 @@
         android:ellipsize="end" />
 
     <TextView
-        android:id="@+id/played"
+        android:id="@+id/tvTranDauBXh"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:text="33"
@@ -39,7 +39,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/won"
+        android:id="@+id/tvTranThangBXH"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:text="23"
@@ -48,7 +48,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/drawn"
+        android:id="@+id/tvTranHoaBXH"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:text="6"
@@ -57,7 +57,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/lost"
+        android:id="@+id/tvTranThuaBXH"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:text="4"
@@ -66,7 +66,7 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/goalDifference"
+        android:id="@+id/tvDiemBXH"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:text="40"

@@ -12,7 +12,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/tvTableName"
+            android:id="@+id/tvBangDau"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bảng A"
@@ -20,7 +20,7 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:background="@drawable/gradient_header"
-            android:padding="16dp"
+            android:padding="12dp"
             android:gravity="center"
             android:elevation="2dp" />
 
@@ -88,14 +88,14 @@
                 android:textColor="#212121"
                 android:gravity="center" />
 
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:text="HS"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="#212121"
-                android:gravity="center" />
+<!--            <TextView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="HS"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#212121"-->
+<!--                android:gravity="center" />-->
 
             <TextView
                 android:layout_width="35dp"
@@ -110,7 +110,7 @@
 
         <!-- RecyclerView cho danh sách đội -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTeamsInTable"
+            android:id="@+id/rvlistDoiBong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

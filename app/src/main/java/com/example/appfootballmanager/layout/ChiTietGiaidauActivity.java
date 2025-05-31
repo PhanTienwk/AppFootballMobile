@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appfootballmanager.R;
+import com.example.appfootballmanager.adapter.BangXepHang1Adapter;
 import com.example.appfootballmanager.adapter.TranDau1Adapter;
 import com.example.appfootballmanager.api.ApiService;
+import com.example.appfootballmanager.model.BangDau;
 import com.example.appfootballmanager.model.DoiBong;
 import com.example.appfootballmanager.model.DoiBongGiaiDau;
 import com.example.appfootballmanager.model.Giaidau;
@@ -26,11 +28,14 @@ import com.example.appfootballmanager.model.News;
 import com.example.appfootballmanager.model.SanVanDong;
 import com.example.appfootballmanager.model.TranDau;
 import com.example.appfootballmanager.model.VongDau;
+import com.example.appfootballmanager.modeladapter.BangXepHangModelAdapter;
+import com.example.appfootballmanager.modeladapter.DoiBongModelAdapter;
 import com.example.appfootballmanager.modeladapter.TranDauModelAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +45,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChiTietGiaidauActivity extends AppCompatActivity {
+    private int apiCallCount = 0;
+    private final int TOTAL_API_CALLS = 7;
 
     private List<VongDau> listVongDau;
     private List<TranDau> listTranDau;
@@ -47,7 +54,11 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
     private List<TranDauModelAdapter> listTranDauGiai;
     private List<DoiBong> listDoiBong;
     private List<KetQuaTranDau> listKetQuaTrauDau;
+    private List<BangXepHangModelAdapter> listBangXepHang;
+    private List<DoiBongGiaiDau> listDoiBongGiaiDau;
+    private List<BangDau> listBangDau;
     private TranDau1Adapter tranDau1Adapter;
+    private BangXepHang1Adapter bangXepHang1Adapter;
 
     private TextView tvTenGiaiDau,tvMotaGiaiDau,tvTenToChucGiaiDau,tvThoiGianBatDau,tvThoiGianKetThuc,tvGioiTinhGiaiDau;
     private RecyclerView rvTranBong,rvBangXepHang;
@@ -70,8 +81,8 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("chitietgiaidau");
         Giaidau giaidau = (Giaidau) bundle.getSerializable("giaidau");
         setUpCard(giaidau);
-        callApi();
-        setuprvTrandau(giaidau);
+        callApi(giaidau);
+
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(ChiTietGiaidauActivity.this);
         rvTranBong.setLayoutManager(linearLayoutManager1);
@@ -80,6 +91,14 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
         rvTranBong.addItemDecoration(itemDecoration1);
         tranDau1Adapter = new TranDau1Adapter(listTranDauGiai);
         rvTranBong.setAdapter(tranDau1Adapter);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(ChiTietGiaidauActivity.this,LinearLayoutManager.HORIZONTAL,false);
+        rvBangXepHang.setLayoutManager(linearLayoutManager2);
+
+        DividerItemDecoration itemDecoration2 = new DividerItemDecoration(ChiTietGiaidauActivity.this,DividerItemDecoration.VERTICAL);
+        rvBangXepHang.addItemDecoration(itemDecoration2);
+        bangXepHang1Adapter = new BangXepHang1Adapter(listBangXepHang);
+        rvBangXepHang.setAdapter(bangXepHang1Adapter);
     }
 
 
@@ -105,29 +124,33 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
         tvThoiGianKetThuc.setText("Ngày kết thúc: " + formattedEndDate);
     }
 
-    private void callApi(){
+    private void callApi(Giaidau giaidau){
         listTranDau = new ArrayList<>();
         listSanVanDong = new ArrayList<>();
         listVongDau = new ArrayList<>();
         listDoiBong = new ArrayList<>();
         listKetQuaTrauDau = new ArrayList<>();
+        listDoiBongGiaiDau = new ArrayList<>();
+        listBangDau = new ArrayList<>();
         ApiService.apiService.getListTranDau().enqueue(new Callback<List<TranDau>>() {
             @Override
             public void onResponse(Call<List<TranDau>> call, Response<List<TranDau>> response) {
                 listTranDau=response.body();
+                checkAndSetupRecyclerView(giaidau);
+                Toast.makeText(ChiTietGiaidauActivity.this, "Length :"+listTranDau.size(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<List<TranDau>> call, Throwable t) {
                 Log.e("ApiError", "Failed to fetch TranDau: " + t.getMessage(), t);
                 Toast.makeText(ChiTietGiaidauActivity.this, "Fail api trandau: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(ChiTietGiaidauActivity.this, "Fail api trandau", Toast.LENGTH_SHORT).show();
             }
         });
         ApiService.apiService.getListSanVanDong().enqueue(new Callback<List<SanVanDong>>() {
             @Override
             public void onResponse(Call<List<SanVanDong>> call, Response<List<SanVanDong>> response) {
                 listSanVanDong=response.body();
+                checkAndSetupRecyclerView(giaidau);
             }
 
             @Override
@@ -139,6 +162,7 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<VongDau>> call, Response<List<VongDau>> response) {
                 listVongDau=response.body();
+                checkAndSetupRecyclerView(giaidau);
             }
 
             @Override
@@ -150,6 +174,7 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<DoiBong>> call, Response<List<DoiBong>> response) {
                 listDoiBong=response.body();
+                checkAndSetupRecyclerView(giaidau);
             }
 
             @Override
@@ -161,6 +186,7 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<KetQuaTranDau>> call, Response<List<KetQuaTranDau>> response) {
                 listKetQuaTrauDau=response.body();
+                checkAndSetupRecyclerView(giaidau);
             }
 
             @Override
@@ -168,11 +194,47 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
                 Toast.makeText(ChiTietGiaidauActivity.this, "Fail api ketqua", Toast.LENGTH_SHORT).show();
             }
         });
+        ApiService.apiService.getListBangDau().enqueue(new Callback<List<BangDau>>() {
+            @Override
+            public void onResponse(Call<List<BangDau>> call, Response<List<BangDau>> response) {
+                listBangDau=response.body();
+                checkAndSetupRecyclerView(giaidau);
+            }
 
+            @Override
+            public void onFailure(Call<List<BangDau>> call, Throwable t) {
+                Toast.makeText(ChiTietGiaidauActivity.this, "Fail api bangdau", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ApiService.apiService.getListDoiBongGiaiDau().enqueue(new Callback<List<DoiBongGiaiDau>>() {
+            @Override
+            public void onResponse(Call<List<DoiBongGiaiDau>> call, Response<List<DoiBongGiaiDau>> response) {
+                listDoiBongGiaiDau=response.body();
+                checkAndSetupRecyclerView(giaidau);
+            }
+
+            @Override
+            public void onFailure(Call<List<DoiBongGiaiDau>> call, Throwable t) {
+                Toast.makeText(ChiTietGiaidauActivity.this, "Fail api doibonggiaidau", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkAndSetupRecyclerView(Giaidau giaidau) {
+        apiCallCount++;
+        if (apiCallCount == TOTAL_API_CALLS) {
+            setuprvTrandau(giaidau);
+            setuprvBangXepHang(giaidau);
+            tranDau1Adapter = new TranDau1Adapter(listTranDauGiai);
+            rvTranBong.setAdapter(tranDau1Adapter);
+            bangXepHang1Adapter = new BangXepHang1Adapter(listBangXepHang);
+            rvBangXepHang.setAdapter(bangXepHang1Adapter);
+        }
     }
 
 
     public void setuprvTrandau(Giaidau giaidau){
+
         if(listTranDau==null || listTranDau.isEmpty()) return;
         List<TranDau> listtd = new ArrayList<>();
         for (TranDau tranDau:listTranDau){
@@ -185,7 +247,7 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             TranDauModelAdapter trandau1 = new TranDauModelAdapter();
             trandau1.setTyso("VS");
             trandau1.setGio(String.valueOf(trandau.getGioDienRa()));
-            trandau1.setNgay(formatDate2(String.valueOf(trandau.getNgayDienRa())));
+            trandau1.setNgay(formatDate(String.valueOf(trandau.getNgayDienRa())));
             for(VongDau vd:listVongDau){
                 if(vd.getMaVongDau().equals(trandau.getMaVongDau())){
                     trandau1.setVongdau(vd.getTenVong());
@@ -194,7 +256,7 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             }
             for(SanVanDong vd:listSanVanDong){
                 if(vd.getMaSan().equals(trandau.getSanVanDong())){
-                    trandau1.setSanvandong(vd.getTen_san());
+                    trandau1.setSanvandong("Sân vận động: "+vd.getTen_san());
                     break;
                 }
             }
@@ -216,7 +278,86 @@ public class ChiTietGiaidauActivity extends AppCompatActivity {
             }
             listTranDauGiai.add(trandau1);
         }
+    }
 
+    private void setuprvBangXepHang(Giaidau giaidau) {
+        listBangXepHang = new ArrayList<>();
+
+        // Kiểm tra dữ liệu đầu vào
+        if (listBangDau == null || listDoiBongGiaiDau == null || listDoiBong == null ||
+                listTranDau == null || listKetQuaTrauDau == null) {
+            Toast.makeText(ChiTietGiaidauActivity.this, "Dữ liệu không hợp lệ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        for (BangDau bangdau : listBangDau) {
+            if (bangdau.getMaGiaiDau().equals(giaidau.getMaGiaidau())) {
+                List<DoiBongModelAdapter> list = new ArrayList<>();
+
+                for (DoiBongGiaiDau doibonggiaidau : listDoiBongGiaiDau) {
+                    if (doibonggiaidau.getMabangDau() != null &&
+                            !doibonggiaidau.getMabangDau().isEmpty() &&
+                            doibonggiaidau.getMabangDau().equals(bangdau.getMaBangDau())) {
+
+                        int sotrandau = 0, sotranthang = 0, sotranthua = 0, sotranhoa = 0, sodiem = 0, hieuso = 0;
+                        String tendoibong = "", madoibong = "";
+
+                        // Tìm tên đội bóng
+                        for (DoiBong doibong : listDoiBong) {
+                            if (doibong.getMaDoiBong().equals(doibonggiaidau.getMaDoiBong())) {
+                                tendoibong = doibong.getTenDoiBong();
+                                madoibong = doibong.getMaDoiBong();
+                                break;
+                            }
+                        }
+
+                        // Tính toán số liệu
+                        for (TranDau trandau : listTranDau) {
+                            if (trandau.getMaDoi1().equals(madoibong) || trandau.getMaDoi2().equals(madoibong)) {
+                                for (KetQuaTranDau ketqua : listKetQuaTrauDau) {
+                                    if (ketqua.getMaTranDau().equals(trandau.getMaTranDau())) {
+                                        ++sotrandau;
+                                        if (ketqua.getSoBanDoi1() == ketqua.getSoBanDoi2()) {
+                                            ++sotranhoa;
+                                            ++sodiem;
+                                        } else if (trandau.getMaDoi1().equals(madoibong) &&
+                                                ketqua.getSoBanDoi1() > ketqua.getSoBanDoi2() ||
+                                                trandau.getMaDoi2().equals(madoibong) &&
+                                                        ketqua.getSoBanDoi2() > ketqua.getSoBanDoi1()) {
+                                            ++sotranthang;
+                                            sodiem += 3;
+                                            hieuso += (trandau.getMaDoi1().equals(madoibong) ?
+                                                    ketqua.getSoBanDoi1() - ketqua.getSoBanDoi2() :
+                                                    ketqua.getSoBanDoi2() - ketqua.getSoBanDoi1());
+                                        } else {
+                                            ++sotranthua;
+                                            hieuso += (trandau.getMaDoi1().equals(madoibong) ?
+                                                    ketqua.getSoBanDoi1() - ketqua.getSoBanDoi2() :
+                                                    ketqua.getSoBanDoi2() - ketqua.getSoBanDoi1());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        list.add(new DoiBongModelAdapter(0, tendoibong, sotrandau, sotranthang, sotranhoa, sotranthua, hieuso, sodiem));
+                    }
+                }
+
+                Collections.sort(list, (a, b) -> {
+                    if (b.getDiem() != a.getDiem()) {
+                        return b.getDiem() - a.getDiem();
+                    }
+                    return b.getDiem() - a.getDiem();
+                });
+
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setStt(i + 1);
+                }
+
+                listBangXepHang.add(new BangXepHangModelAdapter(bangdau.getTenBangDau(), list));
+                Log.d("DEBUG", "Số đội bóng trong bảng " + bangdau.getTenBangDau() + ": " + list.size());
+            }
+        }
     }
 
     private String formatDate(String dateString) {
